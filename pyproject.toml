@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "asm-emweb-client"
+version = "0.1.0"
+description = "Python client for the Avaya Session Manager EM Web Service API"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "click>=8.0",
+    "httpx2>=2.0",
+    "requests>=2.28",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7.0"]
+
+[project.scripts]
+"asm-emweb-client.py" = "asm_emweb_client.cli:main"
+
+[tool.setuptools]
+packages = ["asm_emweb_client"]
