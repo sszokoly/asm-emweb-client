@@ -4,8 +4,9 @@ The bundle concatenates every runtime module of the package in dependency
 order into one flat source file, strips intra-package imports, compresses
 the result with zlib, and wraps it in a small base64 launcher script.
 
-The target platform is Python 3.9+ with Click, httpx2, requests, and
-python-dotenv already installed; those dependencies stay imported, not bundled.
+The target platform is Python 3.9+ with Click, requests, and python-dotenv
+already installed. httpx2 is optional; all dependencies stay imported, not
+bundled.
 The original package files are never modified.
 
 Usage:
@@ -267,7 +268,8 @@ def emit_readme(output_dir: Path, shebang: Optional[str]) -> None:
         "## Target prerequisites\n"
         "\n"
         "- Python 3.9 or later\n"
-        "- Installed `click`, `httpx2`, `requests`, and `python-dotenv` packages\n"
+        "- Installed `click`, `requests`, and `python-dotenv` packages\n"
+        "- Optional: `httpx2` for the preferred HTTP backend and async API\n"
         "\n"
         "## List endpoints that satisfy the filters\n"
         "\n"

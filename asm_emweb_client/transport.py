@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import base64
 import threading
+import warnings
 from contextlib import asynccontextmanager, contextmanager, suppress
 from dataclasses import dataclass, field
 from typing import Any, AsyncGenerator, Dict, Iterator, Mapping, Optional
@@ -290,15 +291,20 @@ class RequestsTransport(Transport):
         monitor = RequestMonitor()
         self._log_request_start(method, path, params)
         try:
-            with self._heartbeat(monitor):
-                response = self._requests.request(
-                    method,
-                    url,
-                    params=params,
-                    headers=get_required_headers(self.username, self.password, accept),
-                    verify=self.verify,
-                    timeout=self.timeout,
-                )
+            with warnings.catch_warnings():
+                if self.verify is False:
+                    import urllib3
+
+                    warnings.simplefilter("ignore", urllib3.exceptions.InsecureRequestWarning)
+                with self._heartbeat(monitor):
+                    response = self._requests.request(
+                        method,
+                        url,
+                        params=params,
+                        headers=get_required_headers(self.username, self.password, accept),
+                        verify=self.verify,
+                        timeout=self.timeout,
+                    )
             monitor.finish()
             result = TransportResponse(
                 status=response.status_code,

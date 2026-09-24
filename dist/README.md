@@ -7,7 +7,8 @@ third-party dependencies.
 ## Target prerequisites
 
 - Python 3.9 or later
-- Installed `click`, `httpx2`, `requests`, and `python-dotenv` packages
+- Installed `click`, `requests`, and `python-dotenv` packages
+- Optional: `httpx2` for the preferred HTTP backend and async API
 
 ## List endpoints that satisfy the filters
 

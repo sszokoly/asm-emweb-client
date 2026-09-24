@@ -305,6 +305,7 @@ def list_command(
                             "yes" if reg.ast else "",
                             "yes" if reg.primReg else "",
                             "yes" if reg.secReg else "",
+                            "yes" if reg.survReg else "",
                             reg.location or "",
                         ]
                     )
@@ -319,7 +320,7 @@ def list_command(
                     break
     except (TransportError, ApiError) as exc:
         raise click.ClickException(f"Connection error: {exc}")
-    headers = ["HANDLE", "IP", "MODEL", "AST", "1st", "2nd", "LOCATION"]
+    headers = ["HANDLE", "IP", "MODEL", "AST", "1st", "2nd", "3rd", "LOCATION"]
     lines = _render_table(headers, rows)
     click.echo(f"Registrations: {len(rows)}")
     for line in lines:

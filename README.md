@@ -7,8 +7,13 @@ AST device notifications such as reboot.
 ## Install
 
 ```bash
-uv sync            # or: pip install .
+uv sync                    # requests fallback backend
+uv sync --extra httpx2    # also install preferred httpx2 backend
+# or: pip install ".[httpx2]"
 ```
+
+`requests` is the required fallback backend. `httpx2` is optional and is used
+when installed; otherwise the client automatically uses `requests`.
 
 ## Configuration
 

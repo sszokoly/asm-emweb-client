@@ -7,7 +7,7 @@ from typing import Any, Dict, Iterator, List, Mapping, Optional
 
 from .diagnostics import _fmt_seconds, logger, request_label
 from .models import ApiError, NotifyResult, RegistrationsPage
-from .transport import Httpx2Transport, Transport, TransportError, TransportResponse
+from .transport import Transport, TransportError, TransportResponse, default_transport
 
 MAX_LIMIT = 1000
 DEFAULT_NOTIFY = "reboot"
@@ -314,7 +314,7 @@ class AsmEmWebClient(_BaseClient):
         transport: Optional[Transport] = None,
     ) -> None:
         if transport is None:
-            transport = Httpx2Transport(
+            transport = default_transport(
                 host, user, password, verify=verify, timeout=timeout, heartbeat_interval=heartbeat_interval
             )
         super().__init__(transport, max_retries=max_retries, retry_max_total=retry_max_total)
@@ -336,7 +336,7 @@ class AsyncAsmEmWebClient(_BaseClient):
         transport: Optional[Transport] = None,
     ) -> None:
         if transport is None:
-            transport = Httpx2Transport(
+            transport = default_transport(
                 host, user, password, verify=verify, timeout=timeout, heartbeat_interval=heartbeat_interval
             )
         super().__init__(transport, max_retries=max_retries, retry_max_total=retry_max_total)
